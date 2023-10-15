@@ -7,6 +7,12 @@ const {onlyUserThread} = require("./services/thread/view/userThread");
 const {createThread} = require("./services/thread/model/createThread");
 const {modifyThread} = require("./services/thread/model/modifyThread");
 const {createLike} = require("./services/like/createLike");
+// /  POST login요청이 들어오면 body에 id와 password를 실어서 요청으로 가정해서 jwt를 발급해준다.
+
+
+// app.post("/login", );
+
+
 
 //session의 id (user table의 pk id)를 client 단에 보내는 session에 저장하고, 민감 정보는
 // --------------------------------------------------------------------------------------------------------
@@ -32,7 +38,7 @@ const server = http.createServer(app)
 // --------------------------------------------------------------------------------------------------------
 
 // 넣는 작업만 해 보자
-// 주석이 많은 관계로 추후에 주석을 view, controller, model 폴더 내로 이동하겠다
+// 주석이 많은 관계로 추후에 주석을 view, controllers, model 폴더 내로 이동하겠다
 // ---------------------
 app.post('/users/sign-up', signUp)
 
