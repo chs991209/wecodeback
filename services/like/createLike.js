@@ -37,7 +37,8 @@ const createLike = async (req, res) => {
         // createLike의 thread_id와 일치하는 ex) cnt_like.thread_id를 가진 data의 num_likes column 값을 읽어서 += 1 / -= 1
         const threadId = req.body.threadId;
         const userId = req.body.userId;
-        // userId => 좋아요 누른 사람 users pk id
+        // const userId = req.session.id
+        // userId => 좋아요 누른 사람의 id. session에서 얻어온다.
 
         const threadLike = await appDataSource.query(
             `

@@ -18,8 +18,8 @@ const onlyUserThread = async (req, res) => {
             console.log("Initialized! Your DB is initialized via typeorm DataSource")
         }
     )
-    const userId = req.body.userId
-    // 원래 req.session에서 sessionId를 불러와야 한다.
+
+    const requestId = req.params(id);
 
     const userThread = await appDataSource.query(
         `
@@ -31,18 +31,13 @@ const onlyUserThread = async (req, res) => {
         users.nickname, 
         threads.created_at 
         FROM threads 
-        INNER JOIN users ON users.id = threads.user_id WHERE users.user_id = '${userId}';        `
+        INNER JOIN users ON users.id = threads.user_id WHERE users.user_id = '${requestId}';        `
     )
 
     console.log("TYPEORM DATA RETURNS EVERY DATA OF THREADS, LENGTH: ", userThread.length)
 
 
     // 그냥 app.js에서 error 설정하도록 하자.
-    // try {
-    //     if (userThread.length === 0) {
-    //         res.statusCode(404).statusMessage("Not Found, Please Check if you're logged in well")
-    //     }
-    // }
     // catch (err) {
     //     console.error(err)
     // }

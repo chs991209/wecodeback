@@ -23,7 +23,6 @@ const createThread = async (req, res) => {
 
     const threadContent = req.body.content;
     const userId = req.body.user_id
-    // console.log(threadContent, " is Written By", userId)
 
 
     // Post Creating BuildUp (POST 전까지 미실행)
