@@ -1,0 +1,61 @@
+const { DataSource } = require("typeorm")
+const dotenv = require('dotenv')
+dotenv.config()
+
+const createLike = async (req, res) => {
+    const appDataSource = new DataSource(
+        {
+            type: process.env.TYPEORM_CONNECTION,
+            host: '127.0.0.1',
+            port: '3306',
+            username: process.env.TYPEORM_USERNAME,
+            password: '1234',
+            database: "wethreads_50"
+        }
+    )
+    const createLike = async (req, res) => {
+        const appDataSource = new DataSource(
+            {
+                type: process.env.TYPEORM_CONNECTION,
+                host: '127.0.0.1',
+                port: '3306',
+                username: process.env.TYPEORM_USERNAME,
+                password: '1234',
+                database: "wethreads_50"
+            }
+        )
+        appDataSource.initialize().then(
+            () => {
+                console.log("Data Source has been initialized!");
+            })
+
+        // 좋아요 개수 표시 기능 구현을 하려면
+        // /thread, /thread/user에서
+        //  thread_id와 같은 thread_id를 가진 thread_likes의 데이터 개수를 get요청에 대한 res.json()에 같이 보내면 된다.
+        // likes 개수 table cnt_likes을 만들어 보자.
+        // express.patch로 해당 게시물의 좋아요에 관한 테이블의 데이터를 patch.
+        // createLike의 thread_id와 일치하는 ex) cnt_like.thread_id를 가진 data의 num_likes column 값을 읽어서 += 1 / -= 1
+        const threadId = req.body.threadId;
+        const userId = req.body.userId;
+        // userId => 좋아요 누른 사람 users pk id
+
+        const threadLike = await appDataSource.query(
+            `
+        INSERT INTO thread_likes (
+        thread_id, user_id
+        )
+        VALUES (
+        '${threadId}'
+        '${userId}'
+        );
+        `
+        )
+        console.log("TYPEORM DATA RETURNS LENGTH: ", threadLike.length)
+
+        return res.status(201).json({"message": "Successfully Like!"})
+
+
+    }
+}
+
+module.exports = { createLike }
